@@ -1,30 +1,34 @@
+using System;
+
 namespace WyCash {
-    public class Money {
-        private string currency;
-        private int amount;
+    public class Money : IExpression {
+        public string Currency { get; }
+        public int Amount { get; }
 
         public Money(int amount, string currency) {
-            this.amount = amount;
-            this.Currency = currency;
-        }
-
-        public int Amount {
-            get { return amount; }
-            private set { amount = value; }
-        }
-
-        public string Currency {
-            get { return currency; }
-            private set { currency = value; }
+            Amount = amount;
+            Currency = currency;
         }
 
         public Money times(int multiplier) {
             return new Money(Amount * multiplier, Currency);
         }
+        public IExpression plus(Money addend) {
+            return new Sum(this, addend);
+        }
+
+        public Money reduce(Bank bank, String to) {
+            int rate = bank.rate(Currency, to);
+            return new Money(Amount / rate, to);
+        }
 
         public override bool Equals(object obj) {
-            Money money = (Money)obj;
+            Money money = (Money) obj;
             return Amount == money.Amount && Currency.Equals(money.Currency);
+        }
+
+        public override string ToString() {
+            return $"{Amount} {Currency}";
         }
 
         public static Money dollar(int amount) {
@@ -33,10 +37,6 @@ namespace WyCash {
 
         public static Money franc(int amount) {
             return new Money(amount, "CHF");
-        }
-
-        public string toString() {
-            return $"{Amount} {Currency}";
         }
     }
 }
