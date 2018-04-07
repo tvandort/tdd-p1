@@ -1,6 +1,7 @@
 using Xunit;
+using WyCash;
 
-namespace Tests
+namespace WyCash.Tests
 {
     public class DollarTests
     {

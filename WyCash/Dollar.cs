@@ -1,14 +1,16 @@
-class Dollar
-{
-    public int amount = 10;
-
-    public Dollar(int amount)
+namespace WyCash {
+    public class Dollar
     {
-        this.amount = amount;
-    }
+        public int amount = 10;
 
-    public Dollar times(int multiplier)
-    {
-        return new Dollar(amount * multiplier);
+        public Dollar(int amount)
+        {
+            this.amount = amount;
+        }
+
+        public Dollar times(int multiplier)
+        {
+            return new Dollar(amount * multiplier);
+        }
     }
 }
