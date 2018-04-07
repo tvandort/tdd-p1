@@ -73,5 +73,15 @@ namespace WyCash.Tests {
         public void testIdentityRate() {
             Assert.Equal(1, new Bank().rate("USD", "USD"));
         }
+
+        [Fact]
+        public void testMixedAddition() {
+            IExpression fiveBucks = Money.dollar(5);
+            IExpression tenFrancs = Money.franc(10);
+            Bank bank = new Bank();
+            bank.addRate("CHF", "USD", 2);
+            Money result = bank.reduce(fiveBucks.plus(tenFrancs), "USD");
+            Assert.Equal(Money.dollar(10), result);
+        }
     }
 }

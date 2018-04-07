@@ -10,10 +10,11 @@ namespace WyCash {
             Currency = currency;
         }
 
-        public Money times(int multiplier) {
+        public IExpression times(int multiplier) {
             return new Money(Amount * multiplier, Currency);
         }
-        public IExpression plus(Money addend) {
+
+        public IExpression plus(IExpression addend) {
             return new Sum(this, addend);
         }
 
