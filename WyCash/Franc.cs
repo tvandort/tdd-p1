@@ -1,11 +1,11 @@
 namespace WyCash {
-    public class Dollar : Money {
-        public Dollar(int amount) {
+    public class Franc : Money {
+        public Franc(int amount) {
             this.amount = amount;
         }
 
         public override Money times(int multiplier) {
-            return new Dollar(amount * multiplier);
+            return new Franc(amount * multiplier);
         }
     }
 }
