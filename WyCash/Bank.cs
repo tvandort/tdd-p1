@@ -4,7 +4,7 @@ namespace WyCash {
     public class Bank {
         private Dictionary<Pair, int> rates = new Dictionary<Pair, int>();
 
-        public Money reduce(IExpression source, string to) {
+        public Money reduce(Expression source, string to) {
             return source.reduce(this, to);
         }
 

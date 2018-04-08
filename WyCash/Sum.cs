@@ -1,27 +1,23 @@
 using System;
 
 namespace WyCash {
-    public class Sum : IExpression {
+    public class Sum : Expression {
 
-        public IExpression Augend { get; }
-        public IExpression Addend { get; }
+        public Expression Augend { get; }
+        public Expression Addend { get; }
 
-        public Sum(IExpression augend, IExpression addend) {
+        public Sum(Expression augend, Expression addend) {
             Augend = augend;
             Addend = addend;
         }
 
-        public Money reduce(Bank bank, string to) {
+        public override Money reduce(Bank bank, string to) {
             int amount =
                 Augend.reduce(bank, to).Amount + Addend.reduce(bank, to).Amount;
             return new Money(amount, to);
         }
 
-        public IExpression plus(IExpression addend) {
-            return new Sum(this, addend);
-        }
-
-        public IExpression times(int multiplier) {
+        public override Expression times(int multiplier) {
             return new Sum(Augend.times(multiplier), Addend.times(multiplier));
         }
     }

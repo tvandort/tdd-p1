@@ -1,7 +1,7 @@
 using System;
 
 namespace WyCash {
-    public class Money : IExpression {
+    public class Money : Expression {
         public string Currency { get; }
         public int Amount { get; }
 
@@ -10,15 +10,11 @@ namespace WyCash {
             Currency = currency;
         }
 
-        public IExpression times(int multiplier) {
+        public override Expression times(int multiplier) {
             return new Money(Amount * multiplier, Currency);
         }
 
-        public IExpression plus(IExpression addend) {
-            return new Sum(this, addend);
-        }
-
-        public Money reduce(Bank bank, String to) {
+        public override Money reduce(Bank bank, String to) {
             int rate = bank.rate(Currency, to);
             return new Money(Amount / rate, to);
         }
