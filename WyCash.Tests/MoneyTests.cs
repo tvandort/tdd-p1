@@ -83,5 +83,27 @@ namespace WyCash.Tests {
             Money result = bank.reduce(fiveBucks.plus(tenFrancs), "USD");
             Assert.Equal(Money.dollar(10), result);
         }
+
+        [Fact]
+        public void testSumPlusMoney() {
+            IExpression fiveBucks = Money.dollar(5);
+            IExpression tenFrancs = Money.franc(10);
+            Bank bank = new Bank();
+            bank.addRate("CHF", "USD", 2);
+            IExpression sum = new Sum(fiveBucks, tenFrancs).plus(fiveBucks);
+            Money result = bank.reduce(sum, "USD");
+            Assert.Equal(Money.dollar(15), result);
+        }
+
+        [Fact]
+        public void testSumTimes() {
+            var fiveBucks = Money.dollar(5);
+            var tenFrancs = Money.franc(10);
+            var bank = new Bank();
+            bank.addRate("CHF", "USD", 2);
+            var sum = new Sum(fiveBucks, tenFrancs).times(2);
+            var result = bank.reduce(sum, "USD");
+            Assert.Equal(Money.dollar(20), result);
+        }
     }
 }

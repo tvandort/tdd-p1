@@ -1,3 +1,5 @@
+using System;
+
 namespace WyCash {
     public class Sum : IExpression {
 
@@ -16,7 +18,11 @@ namespace WyCash {
         }
 
         public IExpression plus(IExpression addend) {
-            return null;
+            return new Sum(this, addend);
+        }
+
+        public IExpression times(int multiplier) {
+            return new Sum(Augend.times(multiplier), Addend.times(multiplier));
         }
     }
 }
